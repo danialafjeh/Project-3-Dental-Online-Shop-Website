@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<main>
+    <!-- Page Header Start -->
+    <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">ارتباط با ما</span></h2>
+        </div>
+        <div class="text-center mb-4">
+            <h5 class="text-primary"><span class="px-2"><strong>با ما در ارتباط باشید</strong></span></h5>
+        </div>
+    </div>
+    <!-- Page Header End -->
+    <br><br><br>
+    <!-- Contact Start -->
+    <div class="container-fluid pt-5">
+        <div class="row">
+            <center>
+                <div class="col-lg-5 mb-5" dir="rtl">
+                    <h4 class="font-weight-semi-bold mb-3">پشتیبانی فروشگاه نفس</h4>
+                    <p>پشتیبانی فروشگاه ما همواره آماده پاسخ‌گویی به سوالات و رفع مشکلات شماست.
+                        تیم پشتیبانی در سریع‌ترین زمان ممکن راهنمایی‌های لازم را ارائه می‌دهد و روند خرید شما را آسان‌تر
+                        می‌کند.
+                        در صورت نیاز به مشاوره، پیگیری سفارش یا گزارش مشکل، می‌توانید از طریق اطلاعات تماس یا ایمیل
+                        پشتیبانی با ما در ارتباط باشید.
+                        هدف ما ارائه تجربه‌ای امن، مطمئن و رضایت‌بخش برای تمام مشتریان است.
+                    </p>
+                    <hr class="border-primary border-3">
+                    <div class="d-flex flex-column mb-3 text-right">
+                        <h5 class="font-weight-semi-bold mb-3">راه های ارتباطی و آدرس فروشگاه</h5>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i> {{ shopinfo.shop_address }}</p>
+                        <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i> {{ shopinfo.shop_email_1 }}</p>
+                        {% if shopinfo.shop_email_2 %}
+                        <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i> {{ shopinfo.shop_email_2 }}</p>
+                        {% endif %}
+                        <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i> {{ shopinfo.shop_phone_1 }}</p>
+                        {% if shopinfo.shop_phone_2 %}
+                        <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i> {{ shopinfo.shop_phone_2 }}</p>
+                        {% endif %}
+                        {% if shopinfo.shop_phone_3 %}
+                        <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i> {{ shopinfo.shop_phone_3 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </center>
+        </div>
+    </div>
+    <!-- Contact End -->
+    <br><br><br><br><br>
+</main>
+{% endblock %}

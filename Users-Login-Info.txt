@@ -1,0 +1,9 @@
+کاربران برای لاگین کردن و تست:
+
+مدیر : username :  DanialManager / email : danielmanager@example.com / pass : manager4551
+
+کارمند : username : mobina_testing /email : mobina@example.com / pass : staff4551
+
+مشتری : username : sara_mir /  email : saramirtest@example.com / pass : sara4551
+
+مشتری : username : ho3ein12 / email : ho3ein@example.com / pass : ramz45517482

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <!-- Page Header Start -->
+    <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">ویرایش اطلاعات حساب کاربری</span></h2>
+        </div>
+        <div class="text-center mb-4">
+            <h5 class="text-primary"><span class="px-2"><strong>اطلاعات حساب خود را اینجا می توانید ویرایش نمایید</strong></span></h5>
+        </div>
+    </div>
+    <!-- Page Header End -->
+    <br><br><br>
+    <!-- Update Profile Form Start -->
+    <div class="container">
+        <div class="row">
+            <center>
+                <form action="{% url 'update_profile' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="col-lg-8" dir="rtl">
+                        <div class="mb-4">
+                            <div class="row">
+                                {% for field in form %}
+                                <div class="col-md-6 form-group font-weight-bold" dir="rtl">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                </div>
+                                {% endfor %}
+                                <hr>
+                                <div class="card-footer border-primary border-3 bg-transparent">
+                                    <button type="submit" class="btn btn-primary border-primary border-3"><strong>ویرایش اطلاعات</strong></button>
+                                </div>
+                                <hr><hr>
+                                <p><strong>اگر قصد تغییر رمز عبور حساب خود را دارید , روی دکمه زیر کلیک نمایید</strong></p>
+                                <div class="card-footer border-primary border-3 bg-transparent">
+                                    <a href="{% url 'update_password' %}" class="btn btn-primary border-primary border-3"><strong>ویرایش رمز عبور</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </center>
+        </div>
+    </div>
+    <br><br><br><br>
+    <!-- Update Profile Form end -->
+</main>
+{% endblock %}

@@ -1,0 +1,207 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Danial Dental Supplies Online Shop</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        .container {display: flex; justify-content: center; align-items: center; height: 50vh;}
+        .alert {direction: rtl; text-align: right; width: 40%; margin-left: auto; margin-right: 20px;}
+        .alert .btn-close {float: left;}
+    </style>
+</head>
+
+<body class="bg-light">
+    <!-- Topbar Start -->
+    <div class="container-fluid">
+        <div class="row align-items-center py-3 px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border-primary border px-3 mr-1">D</span>anial</h1>
+                </a>
+            </div>
+            <div class="col-lg-6 col-6 text-left" dir="rtl">
+                <form action="{% url 'search_products' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text" class="form-control border-primary border-2" placeholder="جستجوی محصولات" name="searched">
+                        <hr>
+                        <div class="input-group-append">
+                            <button type="submit" class="input-group-text bg-transparent text-primary border-primary border-2">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3 col-6 text-right" dir="rtl">
+                <a href="{% url 'cart_summary' %}" class="btn border-primary border-2">
+                    <i class="fas fa-shopping-cart text-primary"><strong>  سبد خرید</strong></i>
+                    <span class="badge text-dark">{{ cart|length }}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-dark" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <!-- Navbar Start -->
+    <div class="container-fluid mb-5">
+        <div class="row border-top px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block" dir="rtl">
+                <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
+                    <h6 class="m-0"><strong>دسته بندی های محصولات</strong></h6>
+                    <i class="fa fa-angle-down text-dark"></i>
+                </a>
+                <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-primary border-bottom-0" id="navbar-vertical">
+                    <div class="navbar-nav w-100 overflow-hidden text-right" style="height: 410px" >
+                        <div class="nav-item dropdown ">
+                            <a href="#" class="nav-link border-primary" data-toggle="dropdown">
+                                <i class="fa fa-angle-down float-left mt-1 fa"></i>
+                                <strong>برند ها</strong>
+                            </a>
+                            <div class="dropdown-menu position-absolute bg-light border-primary rounded-0 w-100 m-0">
+                                {% for brand in brands %}
+                                <a href="{% url 'brand' brand.name %}" class="dropdown-item">{{ brand.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% for cat in categories %}
+                           <a href="{% url 'category' cat.name %}" class="nav-item nav-link border-primary"><strong>{{ cat.name }}</strong></a>
+                        {% endfor %}
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0" dir="rtl">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <h1 class="m-0 display-5 font-weight-semi-bold"><span
+                                class="text-primary font-weight-bold border px-3 mr-1">N</span>afas</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class=" collapse navbar-collapse justify-content-between bg-primary w-100 " id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="{% url 'home' %}" class="nav-item nav-link bg-primary"><strong>صفحه اصلی</strong></a>
+                            <a href="{% url 'products' %}" class="nav-item nav-link bg-primary"><strong>محصولات</strong></a>
+                            <a href="{% url 'profile_user' %}" class="nav-item nav-link bg-primary"><strong>حساب کاربری</strong></a>
+                            <a href="{% url 'contactus' %}" class="nav-item nav-link bg-primary"><strong>ارتباط با ما</strong></a>
+                        </div>
+                        |
+                        <div class="navbar-nav ml-auto py-0">
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'logout' %}" class="nav-item nav-link bg-primary"><strong>خروج از حساب</strong></a>
+                            {% else %}
+                            <a href="{% url 'login_page' %}" class="nav-item nav-link bg-primary"><strong>ورود</strong></a>
+                            <a href="{% url 'signup' %}" class="nav-item nav-link bg-primary"><strong>ثبت نام</strong></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </nav>
+                <div id="header-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" style="height: 410px;">
+                            <img class="img-fluid" src="{% static 'img/dentist-navbar-pic.jpg' %}" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3"><strong>فروش انواع
+                                            لوازم
+                                            دندان پزشکی</strong></h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4"><strong>مناسب ترین
+                                            قیمت</strong></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item" style="height: 410px;">
+                            <img class="img-fluid" src="{% static 'img/dentist-navbar-pic2.jpg' %}" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3"><strong>ثبت و تحویل
+                                            سفارش
+                                            شما در کوتاه ترین زمان</strong></h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4"><strong>با در نظر گرفتن
+                                            کامل
+                                            اصول بهداشتی</strong></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-prev-icon mb-n2"></span>
+                        </div>
+                    </a>
+                    <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-next-icon mb-n2"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Content -->
+    {% block content %}
+
+    {% endblock %}
+    <!-- Content End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-primary text-dark mt-5 pt-5">
+        <div class="row border-top border-dark border-1 mx-xl-5 py-4">
+            <div class="col-md-6 px-xl-0">
+                <p class="mb-md-0 text-center text-md-left text-dark">
+                    &copy; <a class="text-dark font-weight-semi-bold" href="#">Danial Online Shop</a>. All Right
+                    Reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-dark back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>

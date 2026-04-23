@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load my_filters %}
+
+{% block content %}
+<main>
+
+    <body>
+        <!-- Page Header Start -->
+        <div class="container-fluid pt-5">
+            <div class="text-center mb-4">
+                <h2 class="section-title px-5"><span class="px-2">جزئیات محصول</span></h2>
+            </div>
+            <div class="text-center mb-4">
+                <h5 class="text-primary"><span class="px-2"><strong>{{ product.name }}</strong></span></h5>
+            </div>
+        </div>
+        <!-- Page Header End -->
+        <br>
+        <!-- Shop Detail Start -->
+        <div class="container-fluid py-5" dir="rtl">
+            <div class="row px-xl-5">
+                <div class="col-lg-5 pb-5">
+                    <div class="card product-item border-primary border-2 mb-4">
+                        <div
+                            class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                            <img class="w-100 h-100" src="{{ product.picture.url }}" alt="Image">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 pb-5 text-right">
+                    <h3 class="font-weight-semi-bold">{{ product.name }}</h3>
+                    {% if product.is_sale %}
+                    <h4 class="font-weight-semi-bold mb-4" dir="rtl">قیمت : {{ product.sale_price|my_intcomma }}T</h4>
+                    {% else %}
+                    <h4 class="font-weight-semi-bold mb-4" dir="rtl">قیمت : {{ product.price|my_intcomma }}T</h4>
+                    {% endif %}
+                    <hr class="border-primary border-2">
+                    <h6 class="font-weight-semi-bold mb-4" dir="rtl">از برند {{ product.brand.name }}</h6>
+                    <h6 class="font-weight-semi-bold mb-4" dir="rtl"> در دسته بندی {{ product.category.name }}</h6>
+                    <p class="mb-4"><strong>{{ product.description }}</strong></p>
+                    <hr>
+                    <div class="d-flex align-items-center mb-4 pt-2">
+                        <form method="POST" action="{% url 'cart_add' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <h5><strong>تعداد :</strong></h5>
+                            <div class="input-group">
+                                <input type="text" name="product_qty" class="form-control border-primary border-3" value="1" min="1" style="width: 60px;">
+                                <div class="input-group mr-3" style="width: 165px;">
+                                <button type="submit" class="btn btn-primary px-3 border-primary border-2"><i class="fa fa-shopping-cart mr-1"></i><strong>افزودن به سبد خرید</strong></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="nav nav-tabs justify-content-center border-primary border-2 mb-4">
+                    <a class="nav-item nav-link active text-primary" data-toggle="tab" href="#tab-pane-1"><strong>درباره
+                            برند</strong></a>
+                    <a class="nav-item nav-link text-primary" data-toggle="tab" href="#tab-pane-2"><strong>درباره
+                            محصول</strong></a>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active text-right" id="tab-pane-1">
+                            <h4 class="mb-3"> {{ product.brand.name }} برند</h4>
+                            <p><strong>{{ product.brand.description }}</strong></p>
+                        </div>
+                        <div class="tab-pane fade text-right" id="tab-pane-2">
+                            <h4 class="mb-3">{{ product.name }} چیست ؟</h4>
+                            <p><strong>{{ product.extra_description }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Shop Detail End -->
+
+        <!-- Products Start -->
+        <div class="container-fluid py-5">
+            <div class="text-center mb-4">
+                <h2 class="text-dark"><span class="px-2"><strong>محصولات پیشنهادی دیگر</strong></span></h2>
+            </div>
+            <div class="row px-xl-5" dir="ltr">
+                <div class="col">
+                    <div class="owl-carousel related-carousel">
+                        {% for prod in suggested_prods %}
+                        <div class="card product-item border-primary border-2">
+                            <div
+                                class="card-header product-img position-relative overflow-hidden bg-transparent border-primary border-2 p-0">
+                                <img class="img-fluid w-100" src="{{ prod.picture.url }}" alt="">
+                            </div>
+                            <div class="card-body border-right text-center p-0 pt-4 pb-3">
+                                <h6 class="text-truncate mb-3"><strong>{{ prod.name }}</strong></h6>
+                                <div class="d-flex justify-content-center">
+                                    <h6><strong>{{ prod.brand }}</strong></h6>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    {% if prod.is_sale %}
+                                    <h6>{{ prod.sale_price|my_intcomma }}T</h6>
+                                    <h6 class="text-muted ml-2"><del>{{ prod.price|my_intcomma }}T</del></h6>
+                                    {% else %}
+                                    <h6>{{ prod.price|my_intcomma }}T</h6>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between bg-light border-primary border-2">
+                                <a href="{% url 'product_details' prod.id %}" class="btn btn-sm text-dark p-0"><i
+                                        class="fas fa-eye text-primary mr-1"></i><strong>مشاهده جزئیات</strong></a>
+                                <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i><strong>افزودن به سبد خرید</strong></a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Products End -->
+        </div>
+    </body>
+</main>
+<br><br><br>
+{% endblock %}

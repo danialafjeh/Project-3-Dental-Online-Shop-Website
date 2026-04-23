@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <!-- Page Header Start -->
+    <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">ورود</span></h2>
+        </div>
+        <div class="text-center mb-4">
+            <h5 class="text-primary"><span class="px-2"><strong>وارد حساب  خود شوید</strong></span></h5>
+        </div>
+    </div>
+    <!-- Page Header End -->
+    <br><br>
+    <div class="container">
+        <div class="row">
+            <center>
+                <div class="row">
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="width: 35rem;">
+                        <div class="card border-primary border-3">
+                            <div class="card-body">
+                                <h4 class="card-title"><strong>ورود مشتریان</strong></h4>
+                                <hr class="border-primary border-3">
+                                <br>
+                                <a href="{% url 'login_user' %}" class="btn btn-primary border-primary border-3"><strong>صفحه ورود به حساب</strong></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="width: 35rem;">
+                        <div class="card border-primary border-3">
+                            <div class="card-body">
+                                <h4 class="card-title"><strong>ورود مدیران</strong></h4>
+                                <hr class="border-primary border-3">
+                                <br>
+                                <a href="{% url 'login_admin' %}" class="btn btn-primary border-primary border-3"><strong>صفحه ورود به حساب</strong></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+        </div>
+    </div>
+    <br><br><br>
+</main>
+{% endblock %}

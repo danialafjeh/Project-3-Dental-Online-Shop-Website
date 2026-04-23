@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load my_filters %}
+
+{% block content %}
+<main>
+
+    <body>
+        <!-- Page Header Start -->
+        <div class="container-fluid pt-5">
+            <div class="text-center mb-4">
+                <h2 class="section-title px-5"><span class="px-2">تایید نهایی سفارش</span></h2>
+            </div>
+            <div class="text-center mb-4">
+                <h5 class="text-primary"><span class="px-2"><strong>از مشخصات خود اطمینان حاصل کرده و سفارش خود را ثبت
+                            نمایید</strong></span></h5>
+            </div>
+        </div>
+        <!-- Page Header End -->
+        <br><br>
+        <!-- Checkout Start -->
+        <div class="container-fluid pt-5">
+            <div class="row px-xl-5">
+                <div class="col-sm-7" dir="rtl">
+                    <div class="card tm-paging-item text-center border-primary border-2" style="width: 48rem;">
+                        <div class="card-body">
+                            <h4 class="card-title"><strong>مشخصات ارسال سفارش</strong></h4>
+                            <br>
+                            <p class="card-text">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="row">به نام</th>
+                                        <td>{{ user_delivery.full_name }}</td>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <th scope="row">شماره تماس</th>
+                                    <td>{{ user_delivery.phone }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">استان</th>
+                                    <td>{{ user_delivery.province }}</td>
+
+                                <tr>
+                                    <th scope="row">شهر</th>
+                                    <td>{{ user_delivery.city }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">کد پستی</th>
+                                    <td>{{ user_delivery.zip_code }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">نحوه ارسال</th>
+                                    <td>{{ user_delivery.get_delivery_method_display }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </p>
+                            <br>
+                            <a href="{% url 'profile_user' %}"
+                                class="btn btn-primary border-primary border-3"><strong>مشاهده حساب کاربری</strong></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="card border-primary border-2 mb-4">
+                        <div class="card-header bg-primary border-0 text-center">
+                            <h4 class="font-weight-semi-bold m-0">محتویات سفارش</h4>
+                        </div>
+                        <div class="card-body">
+                            {% for prod in products %}
+                            <div class="d-flex justify-content-between" dir="rtl">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="row">
+                                                {{ prod.name }} |
+                                                {% for key,value in quantities.items %}
+                                                {% if key == prod.id|slugify %}
+                                                {{ value }} عدد
+                                                {% endif %}
+                                                {% endfor %}
+                                            </td>
+                                            {% if prod.is_sale %}
+                                            <td>قیمت واحد : {{ prod.sale_price|my_intcomma }}T</td>
+                                            {% else %}
+                                            <td>قیمت واحد : {{ prod.price|my_intcomma }}T</td>
+                                            {% endif %}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="card-footer border-primary border-2 bg-transparent">
+                            <div class="d-flex justify-content-between mt-2" dir="rtl">
+                                <h5 class="font-weight-bold">مجموع قیمت</h5>
+                                <h5 class="font-weight-bold">{{ total_price|my_intcomma }}T</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-primary border-2 mb-5">
+                        <div class="card-footer  bg-transparent">
+                            <p class="text-center"><strong>پس از ثبت سفارش خود , از طریق پنل حساب کاربری اقدام به پرداخت
+                                    مبلغ نمایید</strong></p>
+                            <form method="POST" action="{% url 'create_order' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="user_delivery_id" value="{{ user_delivery.user.id }}">
+                                <button type="submit"
+                                    class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3 border-primary border-2">ثبت
+                                    سفارش</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Checkout End -->
+        <br><br><br><br><br>
+    </body>
+</main>
+{% endblock %}
