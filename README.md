@@ -2,7 +2,9 @@
 
 # 🦷 Dental Tools E-Commerce Website
 A complete and modern dental equipment e-commerce website developed using **Django MVT architecture** for the backend and a responsive frontend built with **HTML, CSS, and JavaScript**.
-This project focuses mainly on backend development and business logic implementation. The frontend design is based on customized and ready made templates that were heavily modified and improved to match the needs of the platform.
+This project focuses mainly on backend development and business logic implementation. The frontend design is based on customized and ready made templates that were heavily modified and improved to match the needs of the platform. (Because my specialization is backend development, the UI is based on a Bootstrap template from templatemo.com to achieve a neat, responsive design.)
+
+‼️ NOTE : This is a portfolio project to showing my abilities and it's not a real deployed project. so all users and database are also exactly available.
 
 ‼️ NOTE : All information saved in database are just for examples and completely fake.
 
