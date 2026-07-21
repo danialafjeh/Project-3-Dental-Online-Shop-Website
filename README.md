@@ -1,5 +1,7 @@
 # About Project
 
+[Complete guide | Run This Project on your computer](https://github.com/danialafjeh/Run-My-Projects-Locally)
+
 # 🦷 Dental Tools E-Commerce Website
 A complete and modern dental equipment e-commerce website developed using **Django MVT architecture** for the backend and a responsive frontend built with **HTML, CSS, and JavaScript**.
 This project focuses mainly on backend development and business logic implementation. The frontend design is based on customized and ready made templates that were heavily modified and improved to match the needs of the platform. (Because my specialization is backend development, the UI is based on a Bootstrap template from templatemo.com to achieve a neat, responsive design.)
