@@ -1,6 +1,6 @@
 # 💻 About Project
 
-[Complete guide | Run This Project on your computer](https://github.com/danialafjeh/Run-My-Projects-Locally)
+[Complete Guide | Run this project on your computer](https://github.com/danialafjeh/Run-My-Projects-Locally)
 
 # Dental E-Commerce Website
 A complete and modern dental equipment e-commerce website developed using **Django MVT architecture** for the backend and a responsive frontend built with **HTML, CSS, and JavaScript**.
